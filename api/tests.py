@@ -11,10 +11,9 @@ class GenericTestCase(APITestCase):
         Generic test case setup
     """
 
-    @classmethod
-    def setUpClass(cls):
-        super().setUpClass()
-        cls.user = User.objects.create(
+    def setUp(self):
+        super().setUp()
+        self.user = User.objects.create(
             email='hevongordon@gmail.com',
             phone_number='18764790489',
             gender='Male',
@@ -22,13 +21,5 @@ class GenericTestCase(APITestCase):
             first_name='Hevon',
             last_name='Gordon',
         )
-        cls.service = Service.objects.create(name='test service')
-        cls.business = Business.objects.create(
-            phone_number='876-000-0000',
-            name='test business',
-            address='test address',
-            owner=cls.user,
-        )
-        cls.business.services.add(cls.service)
-        cls.token = Token.objects.get_or_create(user=cls.user)[0].key
-
+        self.token = Token.objects.get_or_create(user=self.user)[0].key
+        self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.token)

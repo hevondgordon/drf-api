@@ -40,7 +40,6 @@ class AppointmentSerializer(serializers.ModelSerializer):
         return not bool(self._errors)
 
     def create(self, validated_data):
-        print(validated_data)
         _client = validated_data.get('client')
         client = User.objects.get(email=_client.get('email'))
 

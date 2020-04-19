@@ -4,6 +4,7 @@ from users.models import User
 
 
 class Appointment(models.Model):
+    """Appointment model"""
     client = models.ForeignKey(User, on_delete=models.CASCADE)
     service_provider = models.ForeignKey(
         Business, related_name='appointments', on_delete=models.CASCADE)

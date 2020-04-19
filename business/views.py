@@ -12,17 +12,10 @@ class BusinessViewset(viewsets.ModelViewSet):
     """
     API endpoint that allows businesses to be viewed or edited.
     """
-#     phone_number
-# name
-# address
-# owner
-# services
     queryset = Business.objects.all()
     serializer_class = BusinessSerializer
 
     def create(self, request, *args, **kwargs):
-        print(request.data)
-
         data = {
             'phone_number': request.data.get('phone_number'),
             'name': request.data.get('name'),
@@ -40,6 +33,9 @@ class BusinessViewset(viewsets.ModelViewSet):
 
 
 def serialize_services(services):
+    """
+        serialize services based on pks received
+    """
     service_ccontainer = []
     for service in services:
         _service = ServiceSerializer(service).data

@@ -9,6 +9,7 @@ from django.contrib.auth.models import Permission
 from django.urls import reverse
 
 from users.models import User
+from business.models import Service, Business
 
 from .models import Appointment
 
@@ -20,11 +21,17 @@ class AppointmentTests(GenericTestCase):
         Houses tests for appointment functionality
     """
 
-    @classmethod
-    def setUpClass(cls):
-        super().setUpClass()
+    def setUp(self):
+        super().setUp()
         add_appointment_permission = Permission.objects.get(codename="add_appointment")
-        cls.user.user_permissions.add(add_appointment_permission)
+        self.user.user_permissions.add(add_appointment_permission)
+        self.service = Service.objects.create(name='test service')
+        self.business = Business.objects.create(
+            phone_number='876-000-0000',
+            name='test business',
+            address='test address',
+            owner=self.user,
+        )
 
     def test_create_appointment(self):
         """
@@ -34,13 +41,11 @@ class AppointmentTests(GenericTestCase):
         data = {
             'client': 'hevongordon@gmail.com',
             'service_provider': 1,
-            'service_type':  2,
+            'service_type':  1,
             'time': '10:00',
             'date': '2020-03-10',
             'comment': 'hello'
         }
-        self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.token)
         response = self.client.post(url, data, format='json')
         self.assertEqual(1, Appointment.objects.count())
-        print(response.data)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)

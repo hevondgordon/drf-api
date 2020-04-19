@@ -13,11 +13,10 @@ class BusinessTests(GenericTestCase):
         Houses tests for Business functionality
     """
     
-    @classmethod
-    def setUpClass(cls):
-        super().setUpClass()
+    def setUp(self):
+        super().setUp()
         add_business_permission = Permission.objects.get(codename="add_business")
-        cls.user.user_permissions.add(add_business_permission)
+        self.user.user_permissions.add(add_business_permission)
 
     def test_create_business(self):
         """
@@ -32,7 +31,7 @@ class BusinessTests(GenericTestCase):
             'services': [1]
         }
         response = self.client.post(url, data, format='json')
-        self.assertGreater(Business.objects.count(), 1)
+        self.assertEqual(Business.objects.count(), 1)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
 
@@ -41,11 +40,10 @@ class ServiceTests(GenericTestCase):
         Houses tests for Service functionality
     """
 
-    @classmethod
-    def setUpClass(cls):
-        super().setUpClass()
+    def setUp(self):
+        super().setUp()
         add_service_permission = Permission.objects.get(codename="add_service")
-        cls.user.user_permissions.add(add_service_permission)
+        self.user.user_permissions.add(add_service_permission)
 
     def test_create_service(self):
         """
@@ -56,5 +54,5 @@ class ServiceTests(GenericTestCase):
             'name': 'test service'
         }
         response = self.client.post(url, data, format='json')
-        self.assertEqual(1, Service.objects.count())
+        self.assertEqual(Service.objects.count(), 1)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)

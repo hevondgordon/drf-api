@@ -4,6 +4,9 @@ from business.models import Business, Service
 
 
 class Post(models.Model):
+    """
+        Post model
+    """
     caption = models.CharField(max_length=200)
     like_count = models.IntegerField()
     is_liked = models.BooleanField(default=False)

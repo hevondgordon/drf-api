@@ -21,6 +21,10 @@ from post.views import PostViewset
 from business.views import BusinessViewset, ServiceViewset
 from appointment.views import AppointmentViewset
 from django.conf.urls import url, include
+from django.conf import settings
+from django.conf.urls.static import static
+
+from .views import index
 
 router = routers.DefaultRouter()
 router.register(r'users', UserViewSet)
@@ -35,3 +39,4 @@ urlpatterns = [
     url(r'^api-auth/', include('rest_framework.urls')),
     path('api/', include(router.urls)),
 ]
+
