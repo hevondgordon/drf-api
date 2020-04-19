@@ -13,6 +13,10 @@ class Migration(migrations.Migration):
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
     ]
 
+    run_before = [
+        ('users', '0001_initial'),
+    ]
+
     operations = [
         migrations.CreateModel(
             name='Service',

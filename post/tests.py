@@ -31,10 +31,10 @@ class PostTests(GenericTestCase):
         """
         url = reverse('post-list')
         data = {
-            'caption': 'caption dis nuh',
+            'caption': 'caption',
             'created_by': 1,
             'service': 1,
-            'media_url': 'https://www.stuffit.com',
+            'media_url': 'https://www.test.com',
             'media_type': 'VIDEO'
         }
         response = self.client.post(url, data, format='json')

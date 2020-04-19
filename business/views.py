@@ -1,6 +1,7 @@
 from rest_framework import viewsets
 from rest_framework.response import Response
 from rest_framework import status
+from rest_framework import permissions
 
 from .models import Business, Service
 from .serializers import BusinessSerializer, ServiceSerializer
@@ -14,6 +15,7 @@ class BusinessViewset(viewsets.ModelViewSet):
     """
     queryset = Business.objects.all()
     serializer_class = BusinessSerializer
+    permission_classes = [permissions.IsAuthenticated]
 
     def create(self, request, *args, **kwargs):
         data = {

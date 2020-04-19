@@ -12,6 +12,10 @@ class Migration(migrations.Migration):
         ('business', '0001_initial'),
     ]
 
+    run_before = [
+        ('users', '0001_initial'),
+    ]
+
     operations = [
         migrations.CreateModel(
             name='Post',

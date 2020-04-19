@@ -1,4 +1,5 @@
 from rest_framework import viewsets
+from rest_framework import permissions
 from appointment.models import Appointment
 from .serializers import AppointmentSerializer
 from rest_framework import status
@@ -16,19 +17,9 @@ class AppointmentViewset(viewsets.ModelViewSet):
     to the user
     """
 
-#     {
-#     "service_provider": {
-#
-#     },
-#     "service_type": {
-#         "name": ""
-#     },
-#     "time": "",
-#     "date": null,
-#     "comment": ""
-# }
     queryset = Appointment.objects.all()
     serializer_class = AppointmentSerializer
+    permission_classes = [permissions.IsAuthenticated]
 
     def create(self, request, *args, **kwargs):
         client = User.objects.get(email=request.data.get('client'))

@@ -1,2 +1,8 @@
 drf-env/
 drf-api.code-workspace
+*.pyc
+*/**/*.pyc
+*/doctrees
+*.doctree
+*/**/*.doctree
+*/**/*.migrations.*
