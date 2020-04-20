@@ -8,6 +8,9 @@ from .serializers import PostSerializer
 from users.models import User
 from business.models import Service, Business
 from business.serializers import ServiceSerializer, BusinessSerializer
+
+from django.core.exceptions import ObjectDoesNotExist
+from django.http import Http404
 # Create your views here.
 
 
@@ -18,6 +21,16 @@ class PostViewset(viewsets.ModelViewSet):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
     permission_classes = [permissions.IsAuthenticated]
+
+    def retrieve(self, request, *args, **kwargs):
+        Post.set_user(request.user)
+        instance = {}
+        try:
+            instance = Post.objects.get(pk=kwargs.get('pk'))
+        except ObjectDoesNotExist:
+            raise Http404
+        serializer = self.get_serializer(instance)
+        return Response(serializer.data)
 
     def list(self, request, *args, **kwargs):
         Post.set_user(request.user)
