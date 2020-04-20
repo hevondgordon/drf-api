@@ -11,6 +11,7 @@ class PostSerializer(serializers.ModelSerializer):
     liked_by = UserSerializer(many=True, allow_null=True)
     created_by = BusinessSerializer()
     service = ServiceSerializer()
+    like_count = serializers.ReadOnlyField()
     is_liked = serializers.ReadOnlyField()
 
     class Meta:
