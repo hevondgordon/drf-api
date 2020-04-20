@@ -19,9 +19,15 @@ class Post(models.Model):
 
     @property
     def is_liked(self):
-        """returns whether or not this post is liked by the user fetching the post"""
-        pass
+        """ check if post is liked by user making request """
+        if self.user in self.liked_by.all():
+            return True
+        return False
 
+    @classmethod
+    def set_user(cls, user):
+        """ set user """
+        cls.user = user
 
     def __str__(self):
         """Return appointment details"""
