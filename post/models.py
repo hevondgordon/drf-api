@@ -9,7 +9,6 @@ class Post(models.Model):
     """
     caption = models.CharField(max_length=200)
     like_count = models.IntegerField()
-    is_liked = models.BooleanField(default=False)
     created_by = models.ForeignKey(Business, on_delete=models.CASCADE)
     service = models.ForeignKey(
         Service, related_name='posts', on_delete=models.CASCADE)
@@ -17,6 +16,12 @@ class Post(models.Model):
         User, verbose_name="liked by these users", related_name="liked_posts")
     media_url = models.CharField(max_length=100)
     media_type = models.CharField(max_length=50)
+
+    @property
+    def is_liked(self):
+        """returns whether or not this post is liked by the user fetching the post"""
+        pass
+
 
     def __str__(self):
         """Return appointment details"""

@@ -5,14 +5,13 @@ from users.serializers import UserSerializer
 from business.serializers import ServiceSerializer, BusinessSerializer
 from business.models import Business, Service
 
-import json
-
 
 class PostSerializer(serializers.ModelSerializer):
     """  """
     liked_by = UserSerializer(many=True, allow_null=True)
     created_by = BusinessSerializer()
     service = ServiceSerializer()
+    uhhhh = 1
 
     class Meta:
         model = Post
@@ -42,8 +41,10 @@ class PostSerializer(serializers.ModelSerializer):
             caption=validated_data.get('caption'),
             like_count=0,
             is_liked=False,
-            created_by=Business.objects.get(pk=validated_data.get('created_by').get('id')),
-            service=Service.objects.get(pk=validated_data.get('service').get('id')),
+            created_by=Business.objects.get(
+                pk=validated_data.get('created_by').get('id')),
+            service=Service.objects.get(
+                pk=validated_data.get('service').get('id')),
             media_url=validated_data.get('media_url'),
             media_type=validated_data.get('media_type')
         )

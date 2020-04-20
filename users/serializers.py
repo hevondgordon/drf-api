@@ -22,39 +22,3 @@ class UserSerializer(serializers.ModelSerializer):
         Token.objects.create(user=instance)
         return instance
 
-premium_permissions = [
-    'add_appointment',
-    'change_appointment',
-    'delete_appointment',
-    'view_appointment',
-    'view_group',
-    'view_permission',
-    'view_Token',
-    'add_business',
-    'change_business',
-    'delete_business',
-    'view_business',
-    'view_service',
-    'add_post',
-    'change_post',
-    'delete_post',
-    'view_post',
-    'view_session',
-    'add_user',
-    'view_user',
-]
-
-standard_permissions = [
-    'add appointment',
-    'change appointment',
-    'delete appointment',
-    'view appointment',
-    'view group',
-    'view permission',
-    'view Token',
-    'view business',
-    'view service',
-    'view post',
-    'add user',
-    'view user',
-]
