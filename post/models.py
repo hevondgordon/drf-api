@@ -8,7 +8,6 @@ class Post(models.Model):
         Post model
     """
     caption = models.CharField(max_length=200)
-    like_count = models.IntegerField()
     created_by = models.ForeignKey(Business, on_delete=models.CASCADE)
     service = models.ForeignKey(
         Service, related_name='posts', on_delete=models.CASCADE)
@@ -16,6 +15,11 @@ class Post(models.Model):
         User, verbose_name="liked by these users", related_name="liked_posts")
     media_url = models.CharField(max_length=100)
     media_type = models.CharField(max_length=50)
+
+    @property
+    def like_count(self):
+        """returns the number of likes on a post"""
+        return self.liked_by.count()
 
     @property
     def is_liked(self):
