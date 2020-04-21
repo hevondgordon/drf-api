@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.contrib.auth.models import BaseUserManager
+from rest_framework.authtoken.models import Token
 
 class CustomUserManager(BaseUserManager):
     def _create_user(self, username, email, password, **extra_fields):
@@ -18,6 +19,7 @@ class CustomUserManager(BaseUserManager):
         user = self.model(username=username, email=email, **extra_fields)
         user.set_password(password)
         user.save(using=self._db)
+        Token.objects.create(user=user)
         return user
 
     def create_superuser(self, email=None, password=None, **extra_fields):
@@ -34,6 +36,7 @@ class CustomUserManager(BaseUserManager):
         user = self.model(username=username, email=email, **extra_fields)
         user.set_password(password)
         user.save(using=self._db)
+        Token.objects.create(user=user)
         return user
 
 
