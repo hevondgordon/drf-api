@@ -29,21 +29,12 @@ jobs:
 
       - name: start docker containers
         run: docker-compose up -d
-
-      - name: get web container name
-        id: get_web_container_name
-        run: ./get_web_container_name.sh
-
-      - name: Sleep for 5 seconds
-        uses: jakejarvis/wait-action@master
-        with:
-          time: '5s'
         
       - name: run migrations
-        run: docker exec -it ${{ steps.get_web_container_name.outputs.container_name }} python manage.py migrate
+        run: docker-compose exec -T web python manage.py migrate
         
       - name: run tests
-        run: docker exec -it ${{ steps.get_web_container_name.outputs.container_name }} python manage.py test
+        run: docker exec -T web python manage.py test
 
 
   # Push image to GitHub Packages.
