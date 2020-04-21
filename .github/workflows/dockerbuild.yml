@@ -13,9 +13,9 @@ on:
   # Run tests for any PRs.
   pull_request:
 
-env:
-  # TODO: Change variable to your image's name.
-  IMAGE_NAME: image
+# env:
+#   # TODO: Change variable to your image's name.
+#   IMAGE_NAME: image
 
 jobs:
   # Run tests.
@@ -29,12 +29,16 @@ jobs:
 
       - name: start docker containers
         run: docker-compose up -d
+
+      - name: get web container name
+        id: get_web_container_name
+        run: echo "::set-output name=container_name::docker ps -a | awk '{print $NF}' | grep -e "web" | cat"
         
       - name: run migrations
-        run: docker exec -it drf-getting-started_web_1 python manage.py migrate
+        run: docker exec -it ${{ steps.get_web_container_name.outputs.container_name }} python manage.py migrate
         
       - name: run tests
-        run: docker exec -it drf-getting-started_web_1 python manage.py test
+        run: docker exec -it ${{ steps.get_web_container_name.outputs.container_name }} python manage.py test
 
 
   # Push image to GitHub Packages.
