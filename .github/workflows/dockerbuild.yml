@@ -32,7 +32,7 @@ jobs:
 
       - name: get web container name
         id: get_web_container_name
-        run: echo "container_name=$(docker ps -a | awk '{print $NF}' | grep -e "web") echo "::set-output name=container_name::$container_name""
+        run: ./get_web_container_name.sh
         
       - name: run migrations
         run: docker exec -it ${{ steps.get_web_container_name.outputs.container_name }} python manage.py migrate
