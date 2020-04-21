@@ -34,7 +34,7 @@ jobs:
         run: docker-compose exec -T web python manage.py migrate
         
       - name: run tests
-        run: docker exec -T web python manage.py test
+        run: docker-compose exec -T web python manage.py test
 
 
   # Push image to GitHub Packages.
