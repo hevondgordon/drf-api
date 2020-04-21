@@ -6,7 +6,6 @@ from .models import Post
 class PostAdmin(admin.ModelAdmin):
     fields = (
         'caption',
-        'like_count',
         # 'is_liked',
         'created_by',
         'service',

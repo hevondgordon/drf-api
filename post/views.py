@@ -47,7 +47,6 @@ class PostViewset(viewsets.ModelViewSet):
     def create(self, request, *args, **kwargs):
         data = {
             'caption': request.data.get('caption'),
-            'like_count': 0,
             'is_liked': False,
             'created_by': BusinessSerializer(
                 Business.objects.get(pk=request.data.get('created_by'))).data,

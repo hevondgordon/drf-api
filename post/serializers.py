@@ -40,8 +40,6 @@ class PostSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         instance = Post.objects.create(
             caption=validated_data.get('caption'),
-            like_count=0,
-            is_liked=False,
             created_by=Business.objects.get(
                 pk=validated_data.get('created_by').get('id')),
             service=Service.objects.get(

@@ -32,8 +32,8 @@ class PostTests(GenericTestCase):
         url = reverse('post-list')
         data = {
             'caption': 'caption',
-            'created_by': 1,
-            'service': 1,
+            'created_by': self.business.pk,
+            'service': self.service.pk,
             'media_url': 'https://www.test.com',
             'media_type': 'VIDEO'
         }
