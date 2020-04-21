@@ -1,0 +1,58 @@
+name: Docker
+
+on:
+  push:
+    # Publish `master` as Docker `latest` image.
+    branches:
+      - master
+
+    # Publish `v1.2.3` tags as releases.
+    tags:
+      - v*
+
+  # Run tests for any PRs.
+  pull_request:
+
+env:
+  # TODO: Change variable to your image's name.
+  IMAGE_NAME: image
+
+jobs:
+  # Run tests.
+  # See also https://docs.docker.com/docker-hub/builds/automated-testing/
+  test:
+    runs-on: ubuntu-latest
+    name: General Tests
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: start docker containers
+        run: docker-compose up -d
+        
+      - name: run migrations
+        run: docker exec -it drf-getting-started_web_1 python manage.py migrate
+        
+      - name: run tests
+        run: docker exec -it drf-getting-started_web_1 python manage.py test
+
+
+  # Push image to GitHub Packages.
+  # See also https://docs.docker.com/docker-hub/builds/
+#   push:
+#     # Ensure test job passes before pushing image.
+#     needs: test
+
+#     runs-on: ubuntu-latest
+#     if: github.event_name == 'push'
+
+#     steps:
+#       - uses: actions/checkout@v2
+
+#       - name: Build image
+#         run: docker build . --file Dockerfile --tag image
+
+#       - name: Log into registry
+#         run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login docker.pkg.github.com -u ${{ github.actor }} --password-stdin
+
+     
