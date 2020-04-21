@@ -2,7 +2,7 @@ version: '3'
 
 services:
   db:
-    image: hevon/api_postgres_db:1.1
+    image: hevon/api_postgres_db:1.2
     environment: 
       POSTGRES_PASSWORD: "P@ssw0rd"
   web:
