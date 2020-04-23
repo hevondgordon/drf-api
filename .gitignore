@@ -6,4 +6,4 @@ drf-api.code-workspace
 *.doctree
 */**/*.doctree
 */**/*.migrations.*
-*/__pycache__
+*/__pycache__/

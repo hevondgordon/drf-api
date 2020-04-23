@@ -39,7 +39,6 @@ class AppointmentTests(GenericTestCase):
         """
         url = reverse('appointment-list')
         data = {
-            'client': 'hevongordon@gmail.com',
             'service_provider': 1,
             'service_type':  1,
             'time': '10:00',

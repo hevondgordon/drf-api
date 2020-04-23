@@ -22,12 +22,11 @@ class AppointmentViewset(viewsets.ModelViewSet):
     permission_classes = [permissions.IsAuthenticated]
 
     def create(self, request, *args, **kwargs):
-        client = User.objects.get(email=request.data.get('client'))
         service_provider = Business.objects.get(
             pk=request.data.get('service_provider'))
         service_type = Service.objects.get(pk=request.data.get('service_type'))
         appointment_data = {
-            'client': UserSerializer(client).data,
+            'client': UserSerializer(request.user).data,
             'service_provider': BusinessSerializer(service_provider).data,
             'time': request.data.get('time'),
             'date': request.data.get('date'),
