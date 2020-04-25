@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from rest_framework.exceptions import ValidationError
+from rest_framework.utils import model_meta
 
 from .models import Business, Service
 from users.serializers import UserSerializer
@@ -46,10 +47,33 @@ class BusinessSerializer(serializers.ModelSerializer):
             phone_number=validated_data.get('phone_number'),
             name=validated_data.get('name'),
             address=validated_data.get('address'),
-            owner=User.objects.get(email=validated_data.get('owner').get('email')),
+            owner=User.objects.get(
+                email=validated_data.get('owner').get('email')),
             # services=Service.objects.filter(pk__in=validated_data.get('services'))
         )
         for service in validated_data.get('services'):
             _service = Service.objects.get(pk=service.get('id'))
             instance.services.add(_service)
+        return instance
+
+    def update(self, instance, validated_data):
+        info = model_meta.get_field_info(instance)
+
+        for attr, value in validated_data.items():
+            if attr in info.relations and info.relations[attr].to_many:
+                continue
+            else:
+                if attr == 'owner':
+                    owner = User.objects.get(
+                        email=validated_data.get('owner').get('email'))
+                    setattr(instance, attr, owner)
+                else:
+                    setattr(instance, attr, value)
+
+        instance.save()
+
+        for service in validated_data.get('services'):
+            _service = Service.objects.get(name=service.get('name'))
+            instance.services.add(_service)
+
         return instance
