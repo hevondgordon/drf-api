@@ -8,12 +8,9 @@ from rest_framework.authtoken.models import Token
 from django.contrib.auth.models import Permission
 from django.urls import reverse
 
-from users.models import User
 from business.models import Service, Business
-
-from .models import Appointment
-
 from api.tests import GenericTestCase
+from .models import Appointment
 
 
 class AppointmentTests(GenericTestCase):
@@ -23,7 +20,8 @@ class AppointmentTests(GenericTestCase):
 
     def setUp(self):
         super().setUp()
-        add_appointment_permission = Permission.objects.get(codename="add_appointment")
+        add_appointment_permission = Permission.objects.get(
+            codename="add_appointment")
         self.user.user_permissions.add(add_appointment_permission)
         self.service = Service.objects.create(name='test service')
         self.business = Business.objects.create(
