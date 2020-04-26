@@ -3,7 +3,9 @@ from users.models import User
 
 
 class Service(models.Model):
-    name = models.CharField(max_length=50)
+    """ this model defines the services that are available to be 
+    provided by businesses """
+    name = models.CharField(max_length=50, primary_key=True)
 
     def __str__(self):
         """Return name of business"""
@@ -11,6 +13,7 @@ class Service(models.Model):
 
 
 class Business(models.Model):
+    """ this model is used to define the structure of a business """
     phone_number = models.CharField(max_length=12)
     name = models.CharField(max_length=100)
     address = models.CharField(max_length=150)

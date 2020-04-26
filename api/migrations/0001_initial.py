@@ -59,12 +59,12 @@ def forwards(apps, schema_editor):
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-         ('business', '0001_initial'),
-         ('post', '0001_initial'),
-         ('users', '0001_initial'),
-         ('appointment', '0001_initial'),
-    ]
+    # dependencies = [
+    #      ('business', '0001_initial'),
+    #      ('post', '0001_initial'),
+    #      ('users', '0001_initial'),
+    #      ('appointment', '0001_initial'),
+    # ]
 
     operations = [
         #  migrations.RunPython(forwards),

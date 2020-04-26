@@ -1,16 +1,17 @@
 from django.contrib import admin
 
-from django.contrib.auth.admin import UserAdmin
 from .models import User
 
+from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 
-class CustomUserAdmin(admin.ModelAdmin):
-    fields = (
-        'first_name', 'last_name', 'email', 'username',
-        'phone_number', 'gender', 'is_superuser', 'password',
-        'is_staff', 'is_active',
-        'date_joined', 'groups', 'user_permissions',
+
+class CustomUserAdmin(BaseUserAdmin):
+    """ customer user admin that adds gender and phone number fields  """
+    fieldsets = BaseUserAdmin.fieldsets + (
+        (None, {'fields': ('gender', 'phone_number',)}),
+    )
+    add_fieldsets = BaseUserAdmin.add_fieldsets + (
+        (None, {'fields': ('gender', 'phone_number',)}),
     )
 
-
-admin.site.register(User, UserAdmin)
+admin.site.register(User, CustomUserAdmin)

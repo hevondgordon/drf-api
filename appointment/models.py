@@ -11,7 +11,7 @@ class Appointment(models.Model):
     time = models.CharField(max_length=30)
     date = models.DateField()
     service_type = models.ForeignKey(Service, on_delete=models.CASCADE)
-    comment = models.CharField(max_length=100)
+    comment = models.CharField(max_length=100, null=True)
 
     def __str__(self):
         """Return appointment details"""
