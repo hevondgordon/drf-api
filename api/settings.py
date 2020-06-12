@@ -40,9 +40,6 @@ INSTALLED_APPS = [
 
     # apps
     'users',
-    'post',
-    'business',
-    'appointment',
     'api',
 
     'rest_framework',

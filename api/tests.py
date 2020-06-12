@@ -3,7 +3,6 @@ from rest_framework.authtoken.models import Token
 from django.contrib.auth.models import Permission
 
 from users.models import User
-from business.models import Business, Service
 
 
 class GenericTestCase(APITestCase):
@@ -16,7 +15,6 @@ class GenericTestCase(APITestCase):
         self.user = User.objects.create(
             email='hevongordon@gmail.com',
             phone_number='18764790489',
-            gender='Male',
             password='P@ssw0rd123',
             first_name='Hevon',
             last_name='Gordon',

@@ -44,16 +44,5 @@ class User(AbstractUser):
     objects = CustomUserManager()
     email = models.EmailField(('email address'), max_length=254, unique=True)
     phone_number = models.CharField(max_length=13, null=True, blank=True)
-    GENDER_CHOICES = [
-        ('Male', 'Male'),
-        ('Female', 'Female'),
-        ('Other', 'Other'),
-        ('Rather not say', 'Rather not say'),
-    ]
-    gender = models.CharField(
-        max_length=20,
-        choices=GENDER_CHOICES,
-        default='Rather not say',
-    )
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['first_name', 'last_name']

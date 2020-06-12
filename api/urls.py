@@ -17,9 +17,6 @@ from django.contrib import admin
 from django.urls import path
 from rest_framework import routers
 from users.views import UserViewSet
-from post.views import PostViewset
-from business.views import BusinessViewset, ServiceViewset
-from appointment.views import AppointmentViewset
 from django.conf.urls import url, include
 from django.conf import settings
 from django.conf.urls.static import static
@@ -28,10 +25,6 @@ from .views import index
 
 router = routers.DefaultRouter()
 router.register(r'users', UserViewSet)
-router.register(r'posts', PostViewset)
-router.register(r'business', BusinessViewset)
-router.register(r'appointments', AppointmentViewset)
-router.register(r'services', ServiceViewset)
 
 
 urlpatterns = [
